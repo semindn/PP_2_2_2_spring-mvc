@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.model.Car;
+import web.service.CarServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +28,8 @@ public class HelloController {
 	public String printCars(
 			@RequestParam(value = "count", required = false) Integer countCars,
 			ModelMap model) {
-		Car car1 = new Car("model1", "color1", 101);
-		Car car2 = new Car("model2", "color2", 102);
-		Car car3 = new Car("model3", "color3", 103);
-		Car car4 = new Car("model4", "color4", 104);
-		Car car5 = new Car("model5", "color5", 105);
-		List<Car> list = new ArrayList<>();
-		list.add(car1);
-		list.add(car2);
-		list.add(car3);
-		list.add(car4);
-		list.add(car5);
+		CarServiceImpl carService = new CarServiceImpl();
+		List<Car> list = carService.getCarList();
 		if (countCars == null || countCars < 0 || countCars > list.size()) {
 			countCars = list.size();
 		}
